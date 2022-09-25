@@ -3,6 +3,8 @@ package com.example.timewallpaper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.ExperimentalFoundationApi
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -18,9 +20,18 @@ import com.example.timewallpaper.ui.theme.appBarDarkBlackDark
 import com.example.timewallpaper.ui.theme.appScaffoldColor
 import com.example.timewallpaper.util.AppThemeState
 import com.example.timewallpaper.util.SystemUiController
+import com.example.timewallpaper.util.TimeNavigation
+import com.google.accompanist.pager.ExperimentalPagerApi
+import kotlinx.coroutines.DelicateCoroutinesApi
 
 class MainActivity : ComponentActivity() {
 
+    @OptIn(
+        ExperimentalPagerApi::class,
+        ExperimentalFoundationApi::class,
+        ExperimentalMaterialApi::class,
+        DelicateCoroutinesApi::class
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -34,8 +45,7 @@ class MainActivity : ComponentActivity() {
 
             BaseView(appTheme.value, systemUiController) {
                 val navController = rememberNavController()
-//                Navigation(navController = navController, appTheme)
-                TimeComposable(state)
+                TimeNavigation(navController = navController, appTheme, state)
             }
         }
     }
