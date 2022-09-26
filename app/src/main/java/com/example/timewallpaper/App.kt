@@ -3,7 +3,9 @@ package com.example.timewallpaper
 import android.app.Application
 import com.example.timewallpaper.util.Domain
 import com.example.timewallpaper.util.SharedPrefUtils
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class App : Application() {
 
     override fun onCreate() {
