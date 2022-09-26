@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.timewallpaper.domain.state.ScreenTimeState
 import com.example.timewallpaper.domain.usecase.time.IGetTimeUseCase
-import com.example.timewallpaper.util.log
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -23,7 +22,6 @@ class TimeViewModel @Inject constructor(
         viewModelScope.launch {
             getTimeUseCase.invoke().collect {
                 _screenTimeState.value = it.value
-                it.value.dateState.log()
             }
         }
     }

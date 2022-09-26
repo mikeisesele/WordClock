@@ -43,7 +43,7 @@ class GetTimeUseCase() : IGetTimeUseCase {
                 hour = hour,
                 minute = minute,
                 second = second,
-                ampm = ampm.toString(),
+                ampm = ampmString,
                 hourInWords = hourString,
                 minuteInWords = minuteString,
                 secondInWords = secondString
@@ -58,8 +58,12 @@ class GetTimeUseCase() : IGetTimeUseCase {
 
             timeState.value.let { timeState ->
                 when (timeState.hour.toString()) {
-                    "0" -> updateState { state ->
-                        state.copy(midnight = true)
+                    "0" -> {
+                        if (timeState.minute == 0) {
+                            updateState { state -> state.copy(mValue = "MIDNIGHT", secondsInt = second, midnight = true, twelve = true, minute = true) }
+                        } else {
+                            updateState { state -> state.copy(mValue = minuteString, secondsInt = second, midnight = true, twelve = true, minute = true) }
+                        }
                     }
                     "1" -> updateState { state ->
                         state.copy(one = true)
@@ -137,8 +141,12 @@ class GetTimeUseCase() : IGetTimeUseCase {
 
                 when (timeState.minute) {
                     Milestone.EXACT.value -> {
-                        updateState { state -> state.copy(oClock = true, secondsInt = second) }
-                        cleanHourAndMinute()
+                        if (timeState.hour != 0) {
+                            updateState { state -> state.copy(oClock = true, secondsInt = second) }
+                            cleanHourAndMinute()
+                        } else {
+                            updateState { state -> state.copy(oClock = false, secondsInt = second) }
+                        }
                     }
                     Milestone.FIFTEEN.value -> {
                         updateState { state ->
@@ -201,7 +209,7 @@ class GetTimeUseCase() : IGetTimeUseCase {
                 }
             }
 
-            updateState { state -> state.copy(dateState = dateState.value) }
+            updateState { state -> state.copy(dateState = dateState.value, seconds = true, speakHourValue = hourString, speakMinuteValue = minuteString, speakSecondValue = secondString) }
 
             emit(_screenTimeState)
             delay(1000)

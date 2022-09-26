@@ -7,7 +7,7 @@ fun Any.log() {
     Log.d("INFORMATION", this.toString())
 }
 
-fun log(message: String) {
+fun  log(message: String) {
     Log.d("INFORMATION", message)
 }
 

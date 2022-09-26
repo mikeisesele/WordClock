@@ -35,6 +35,9 @@ data class ScreenTimeState(
     val hValue: String = "HOUR",
     val mValue: String = "MINUTE",
     val sValue: String = "SECONDS",
+    val speakHourValue: String = "HOUR",
+    val speakMinuteValue: String = "MINUTE",
+    val speakSecondValue: String = "SECONDS",
     val ampm: String = "",
     val secondsInt: Int = 0,
     val dateState: DateState = DateState()

@@ -65,9 +65,9 @@ class MainActivity : ComponentActivity() {
                 textToSpeech?.language = Locale.UK
                 when (state.oClock) {
                     true -> {
-                        if (state.secondsInt < 1){
+                        if (state.secondsInt < 1) {
                             textToSpeech?.speak(
-                                listOf("It's exactly ${state.hValue} o'clock ${state.ampm}", "The time is ${state.hValue} ${state.ampm}").random(),
+                                listOf("It's exactly ${state.speakHourValue} o'clock ${state.ampm}", "The time is ${state.speakHourValue} ${state.ampm}").random(),
                                 TextToSpeech.QUEUE_FLUSH,
                                 null
                             )
@@ -79,8 +79,8 @@ class MainActivity : ComponentActivity() {
                         if (state.secondsInt < 1) {
                             textToSpeech?.speak(
                                 listOf(
-                                    "It's half past ${state.hValue} ${state.ampm}",
-                                    "It's ${state.hValue} thirty ${state.ampm}"
+                                    "It's half past ${state.speakHourValue} ${state.ampm}",
+                                    "It's ${state.speakHourValue} thirty ${state.ampm}"
                                 ).random(),
                                 TextToSpeech.QUEUE_FLUSH,
                                 null
